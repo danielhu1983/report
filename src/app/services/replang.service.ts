@@ -255,6 +255,7 @@ export class ReplangService {
                                                     name: "portfolioDropdown",
                                                     dtlID: 502,
                                                     dtilStyle: 268438400,
+                                                    dialog: "dialog",
                                                     click: function (context) {
                                                         that._notify.sendMessage(context);
                                                         //var portfolio = context.pageContext.service.findControl("portfolioDropdown");
@@ -275,6 +276,7 @@ export class ReplangService {
                                                     name: "currencyDropdown",
                                                     dtlID: 510,
                                                     dtilStyle: 268438144,
+                                                    dialog: "dialog",
                                                     click: function (context) {
                                                         that._notify.sendMessage(context);
                                                         //var portfolio = context.pageContext.service.findControl("portfolioDropdown");
@@ -290,7 +292,8 @@ export class ReplangService {
                                             {
                                                 type: "myFormGroupDatepicker",
                                                 options: {
-                                                    label: "Date"
+                                                    label: "Date",
+                                                    dialog: "dialog",
                                                 }
                                             },
                                             {
@@ -312,6 +315,7 @@ export class ReplangService {
                                                     disabled: false,
                                                     value: "chart",
                                                     dtlID: 400,
+                                                    dialog: "dialog",
                                                     click: function (context) {
                                                         context.checked = !context.checked;
                                                         that._notify.sendMessage(context);
@@ -340,6 +344,7 @@ export class ReplangService {
                                                     name: "netoffee",
                                                     dtlID: 511,
                                                     dtilStyle: 83886082,
+                                                    dialog: "dialog",
                                                     click: function (context) {
                                                         var accfee = context.pageContext.service.findControl("accfee");
                                                         //accfee.options.disabled = true;
@@ -358,6 +363,7 @@ export class ReplangService {
                                                     name: "grossoffee",
                                                     dtlID: 512,
                                                     dtilStyle: 83886082,
+                                                    dialog: "dialog",
                                                     click: function (context) {
                                                         that._notify.sendMessage(context);
                                                     }
@@ -385,6 +391,7 @@ export class ReplangService {
                                                     name: "sectype",
                                                     dtlID: 520,
                                                     dtilStyle: 268438144,
+                                                    dialog: "dialog",
                                                     click: function (context) {
                                                         that._notify.sendMessage(context);
                                                     },
@@ -401,6 +408,7 @@ export class ReplangService {
                                                     name: "secsymbol",
                                                     dtlID: 521,
                                                     dtilStyle: 268438144,
+                                                    dialog: "dialog",
                                                     click: function (context) {
                                                         that._notify.sendMessage(context);  
                                                     },
@@ -433,6 +441,7 @@ export class ReplangService {
                             id: "openConfirmDialog",
                             modal: "modal",
                             target: "#portfolio_summary_confirm",
+                            dialog: "dialog",
                             click: function (context) {
                                 var confirmDialog = context.pageContext.service.getSummaryConfirmUILayout();
                                 context.pageContext.ui.children.push(confirmDialog);
@@ -472,6 +481,7 @@ export class ReplangService {
                         options: {
                             buttonText: "Settings",
                             dtlID: 100,
+                            dialog: "dialog",
                             click: function (context) {
                                 that._notify.sendMessage(context);
                             }
@@ -483,10 +493,11 @@ export class ReplangService {
     }
 
     public getSummaryChartUILayout(): Object {
+        let that = this;
         return {
             type: "myDialog",
             options: {
-                dialogId: "portfolio_summary_chart",
+                dialogId: "myportfolio_chart",
                 title: "Report: Chart Options",
                 body: [
                     {
@@ -512,7 +523,9 @@ export class ReplangService {
                                                     label: "Pie",
                                                     value: "pie",
                                                     groupName: "chartType",
+                                                    dialog: "portfolio_chart",
                                                     click: function (context) {
+                                                        that._notify.sendMessage(context);
                                                         var _3d = context.pageContext.service.findControl("3dCheck");
                                                         var _comLables = context.pageContext.service.findControl("labelCheck");
                                                         var _gridLines = context.pageContext.service.findControl("lineCheck");
@@ -530,6 +543,7 @@ export class ReplangService {
                                                     label: "Bar",
                                                     value: "bar",
                                                     groupName: "chartType",
+                                                    dialog: "portfolio_chart",
                                                     click: function (context) {
 
                                                     }
@@ -542,6 +556,7 @@ export class ReplangService {
                                                     label: "Column",
                                                     value: "column",
                                                     groupName: "chartType",
+                                                    dialog: "portfolio_chart",
                                                     click: function (context) {
 
                                                     }
@@ -554,6 +569,7 @@ export class ReplangService {
                                                     label: "Line",
                                                     value: "line",
                                                     groupName: "chartType",
+                                                    dialog: "portfolio_chart",
                                                     click: function (context) {
                                                         var _3d = context.pageContext.service.findControl("3dCheck");
                                                         var _comLables = context.pageContext.service.findControl("labelCheck");
@@ -845,6 +861,7 @@ export class ReplangService {
                                                 name: "MBS",
                                                 dtlID: 600,
                                                 dtilStyle: 268438144,
+                                                dialog: "Report_Setting",
                                                 click: function (context) {
                                                     that._notify.sendMessage(context);
                                                 },
@@ -861,6 +878,7 @@ export class ReplangService {
                                             name: "TIPS",
                                             dtlID: 601,
                                             dtilStyle: 268438144,
+                                            dialog: "Report_Setting",
                                             click: function (context) {
                                                 that._notify.sendMessage(context);
                                             },
@@ -874,6 +892,7 @@ export class ReplangService {
                                             label: "Override portfolio settings",
                                             value: "icu",
                                             dtlID: 500,
+                                            dialog: "Report_Setting",
                                             disabled: false,
                                             click: function (context) {
                                             }
@@ -890,6 +909,7 @@ export class ReplangService {
                         type: "myDialogButton",//myDialogButton
                         options: {
                             buttonText: "OK",
+                            dialog: "Report_Setting",
                             click: function (context) {
 
                             }

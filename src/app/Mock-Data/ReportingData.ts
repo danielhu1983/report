@@ -128,6 +128,42 @@ export  class ReportingData{
         );
     }
 
+    public static getMBSFacesetting(): any{
+        return (
+            [ 
+                {
+                    "value": "0",
+                    "text": "<Use Settings>"
+                },
+                {
+                    "value": "UCF",
+                    "text": "Use current face"
+                },
+                {
+                    "value": "UOF",
+                    "text": "Use original face"
+                }
+            ]);
+    }
+
+    public static getTIPSFacesetting(): any{
+        return (
+            [ 
+                {
+                    "value": "0",
+                    "text": "<Use Settings>"
+                },
+                {
+                    "value": "UAF",
+                    "text": "Use Adjusted face"
+                },
+                {
+                    "value": "UOF",
+                    "text": "Use original face"
+                }
+            ]);
+    }
+
     public static getSecuritySymbol(secType: string): any{
         switch (secType){
             case 'csus':
