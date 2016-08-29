@@ -43,12 +43,13 @@ export class DialogAdapter{
                 if(repDLG.m_ECD[ecdIndex].id === repDLG.m_DLGITEMTEMPLATE[index].dtilID){
                     result.options.dtlStyle = repDLG.m_ECD[ecdIndex].Style;
                     result.options.dtlExStyle = repDLG.m_ECD[ecdIndex].ExStyle.xs;
-                    if(repDLG.m_ECD[ecdIndex].HasStyle(rep9.ADDS_DATE)){
-                        result.options.id = dtilText + 'date';//'myFormGroupDatepicker';
+                    let ecd: rep8.ECD = repDLG.m_ECD[ecdIndex];
+                    if(rep8.ecdHasStyle(ecd,rep9.ADDS_DATE)){
+                        result.options.id = dtilText + 'date';
                         result.type = 'myFormGroupDatepicker';
                     }
                     else{
-                        result.options.id = dtilText + result.options.label;//'myFormGroupDropdown';
+                        result.options.id = dtilText + result.options.label;
                         result.type = 'myFormGroupDropdown';
                     }
                     break;
@@ -56,9 +57,6 @@ export class DialogAdapter{
             }
         }
         else if(repDLG.m_DLGITEMTEMPLATE[index].dtilClass.toUpperCase() === 'BUTTON'){
-            //console.warn(dtilText);
-            //console.warn(repDLG.m_DLGITEMTEMPLATE[index].groupNumber);
-            //console.warn(repDLG.m_DLGITEMTEMPLATE[index].dtilText);
             if(dtilText.toUpperCase() === "OK" ||
                 dtilText.toUpperCase() === 'CANCEL' ||
                 dtilText.toUpperCase() === 'HELP' ||
@@ -76,17 +74,15 @@ export class DialogAdapter{
                     if(repDLG.m_ECD[ecdIndex].id === repDLG.m_DLGITEMTEMPLATE[index].dtilID){
                         result.options.dtlStyle = repDLG.m_ECD[ecdIndex].Style;
                         result.options.dtlExStyle = repDLG.m_ECD[ecdIndex].ExStyle.xs;
-                        if(repDLG.m_ECD[ecdIndex].HasStyle(rep9.ADDS_CHECK)){
+                        let ecd: rep8.ECD = repDLG.m_ECD[ecdIndex];
+                        if(rep8.ecdHasStyle(ecd,rep9.ADDS_CHECK)){
                             result.type = 'myFormGroupCheckbox';
-                            result.options.id = dtilText + 'Checkbox';//'myFormGroupCheckbox';
+                            result.options.id = dtilText + 'Checkbox';
                         }
-                        else if(repDLG.m_ECD[ecdIndex].HasStyle(rep9.ADDS_RADIO)){
+                        else if(rep8.ecdHasStyle(ecd,rep9.ADDS_RADIO)){
                             result.type = 'myFormGroupRadiobutton';
-                            result.options.id = dtilText + 'Radio';//'myFormGroupRadiobutton';
+                            result.options.id = dtilText + 'Radio';
                         }
-                        /*else{
-                            result.id = 'myDialogButton';
-                        }*/
                         break;
                     }
                 }
@@ -104,13 +100,11 @@ export class DialogAdapter{
                     if(repDLG.m_ECD[ecdIndex].lab === '_asdtxt'){
                         result.isInbody = true;
                         result.type = 'myTitle';
-                        //result.options.id = 'myTitle';
                     }
                 }
             }
             
         }
-        //"dtilClass": "COMBOBOX"
         return true;
     }
 
@@ -121,8 +115,6 @@ export class DialogAdapter{
     private static LoadMyReport(repname: string, descName: string): any{
         reps.InitInstance();
         let repJson = reps.LoadReport(repname,descName);
-        //return repJson;
-        console.warn(repJson);
         return this.FixforUI(repJson);
     }
 

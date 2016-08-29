@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 
 import { AppraisalParm } from '../model/appraisal.parm.model';
 
+import { NotifiMessage } from '../ReportDialogController/NotifiMessage';
+import { DialogAdapter } from '../ReportDialogController/ReportingAdapter';
 
 function detectValue(appraisalParm) {
     if (appraisalParm.ParmSectionID === "1") {
@@ -31,7 +33,7 @@ function detectTitle(appraisalParm) {
 @Injectable()
 export class ReplangService {
 
-    constructor(private _transporter: TransporterService, private _rep: RepService) {
+    constructor(private _transporter: TransporterService, private _rep: RepService, private _notify: NotifiMessage) {
     }
 
     public ssrsData: any;
@@ -218,6 +220,8 @@ export class ReplangService {
 
 
     public getSummaryReportUILayout(): Object {
+        let repDLG = DialogAdapter.getrepJSON('psum','Portfolio summary');
+        let that = this;
         return {
             type: "myDialog",
             options: {
@@ -249,9 +253,12 @@ export class ReplangService {
                                                     label: "Portfolio",
                                                     disabled: false,
                                                     name: "portfolioDropdown",
+                                                    dtlID: 502,
+                                                    dtilStyle: 268438400,
                                                     click: function (context) {
-                                                        var portfolio = context.pageContext.service.findControl("portfolioDropdown");
-                                                        portfolio.options.items = context.pageContext.data[1].portfolio;
+                                                        that._notify.sendMessage(context);
+                                                        //var portfolio = context.pageContext.service.findControl("portfolioDropdown");
+                                                        //portfolio.options.items = context.pageContext.data[1].portfolio;
                                                     },
                                                     onchange: function (value) {
                                                         console.warn(value);
@@ -266,11 +273,14 @@ export class ReplangService {
                                                     label: "Reporting Currency",
                                                     disabled: false,
                                                     name: "currencyDropdown",
+                                                    dtlID: 510,
+                                                    dtilStyle: 268438144,
                                                     click: function (context) {
-                                                        var portfolio = context.pageContext.service.findControl("portfolioDropdown");
-                                                        console.warn(portfolio.options.selectedIndex);
-                                                        var currency = context.pageContext.service.findControl("currencyDropdown");
-                                                        currency.options.items = context.pageContext.data[1].currency;
+                                                        that._notify.sendMessage(context);
+                                                        //var portfolio = context.pageContext.service.findControl("portfolioDropdown");
+                                                        //console.warn(portfolio.options.selectedIndex);
+                                                        //var currency = context.pageContext.service.findControl("currencyDropdown");
+                                                        //currency.options.items = context.pageContext.data[1].currency;
                                                     },
                                                     onchange: function (value) {
                                                         console.warn(value);
@@ -282,15 +292,7 @@ export class ReplangService {
                                                 options: {
                                                     label: "Date"
                                                 }
-                                            }
-                                        ]
-                                    }
-                                },
-                                {
-                                    type: "mySection",
-                                    options: {
-                                        klass: "section",
-                                        children: [
+                                            },
                                             {
                                                 type: "myFormGroupCheckbox",
                                                 options: {
@@ -309,15 +311,113 @@ export class ReplangService {
                                                     label: "Chart",
                                                     disabled: false,
                                                     value: "chart",
+                                                    dtlID: 400,
                                                     click: function (context) {
                                                         context.checked = !context.checked;
+                                                        that._notify.sendMessage(context);
                                                         //var chartDialog = context.pageContext.service.getSummaryChartUILayout();
                                                         //context.pageContext.ui.children.push(chartDialog);
                                                         //context.options.modal = "modal";
                                                         //context.options.target = "#portfolio_summary_chart";
                                                     }
                                                 }
+                                            },
+                                            {
+                                                type: "myTitle",
+                                                options: {
+                                                    title: "Calculate Performance",
+                                                    name: "calcType",
+                                                    level: 6
+                                                }
+                                            },
+                                            {
+                                                type: "myFormGroupRadiobutton",
+                                                options: {
+                                                    id: "netoffee",
+                                                    label: "Net of Fee",
+                                                    value: "netoffee",
+                                                    groupName: "calcType",
+                                                    name: "netoffee",
+                                                    dtlID: 511,
+                                                    dtilStyle: 83886082,
+                                                    click: function (context) {
+                                                        var accfee = context.pageContext.service.findControl("accfee");
+                                                        //accfee.options.disabled = true;
+                                                        //context.pageContext.children
+                                                        that._notify.sendMessage(context);
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                type: "myFormGroupRadiobutton",
+                                                options: {
+                                                    id: "grossoffee",
+                                                    label: "Gross of Fee",
+                                                    value: "grossoffee",
+                                                    groupName: "calcType",
+                                                    name: "grossoffee",
+                                                    dtlID: 512,
+                                                    dtilStyle: 83886082,
+                                                    click: function (context) {
+                                                        that._notify.sendMessage(context);
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                type: "myFormGroupCheckbox",
+                                                options: {
+                                                    id: "accfee",
+                                                    label: "Acc Fee",
+                                                    disabled: false,
+                                                    value: "accfee",
+                                                    name: "accfee",
+                                                    dtlID: 511,
+                                                    click: function (context) {                                                      
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                type: "myFormGroupDropdown",
+                                                options: {
+                                                    id: "sectype",
+                                                    label: "Security Type",
+                                                    disabled: false,
+                                                    name: "sectype",
+                                                    dtlID: 520,
+                                                    dtilStyle: 268438144,
+                                                    click: function (context) {
+                                                        that._notify.sendMessage(context);
+                                                    },
+                                                    onchange: function (event) {                                                    
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                type: "myFormGroupDropdown",
+                                                options: {
+                                                    id: "secsymbol",
+                                                    label: "Security Symbol",
+                                                    disabled: false,
+                                                    name: "secsymbol",
+                                                    dtlID: 521,
+                                                    dtilStyle: 268438144,
+                                                    click: function (context) {
+                                                        that._notify.sendMessage(context);  
+                                                    },
+                                                    onchange: function (event) {
+
+                                                    }
+                                                }
                                             }
+                                        ]
+                                    }
+                                },
+                                {
+                                    type: "mySection",
+                                    options: {
+                                        klass: "section",
+                                        children: [
+                                            
                                         ]
                                     }
                                 }
@@ -371,8 +471,9 @@ export class ReplangService {
                         type: "myDialogButton",
                         options: {
                             buttonText: "Settings",
+                            dtlID: 100,
                             click: function (context) {
-
+                                that._notify.sendMessage(context);
                             }
                         }
                     }
@@ -717,6 +818,87 @@ export class ReplangService {
         }
     }
 
+    public getSettingDialog(): Object{
+        let that = this;
+        return{
+            type: "myDialog",
+            options:{
+                dialogId: "Report_Setting",
+                title: "Settings",
+                modal: "modal",
+                target: "#Report_Setting",
+                body: [
+                    {
+                        type: "myDialogBody",
+                        options: {
+                            children:[{
+                                type: "mySection",
+                                options: {
+                                    klass: "section",
+                                    children: [
+                                        {                                    
+                                            type: "myFormGroupDropdown",
+                                            options: {
+                                                id: "MBS",
+                                                label: "MBS",
+                                                disabled: false,
+                                                name: "MBS",
+                                                dtlID: 600,
+                                                dtilStyle: 268438144,
+                                                click: function (context) {
+                                                    that._notify.sendMessage(context);
+                                                },
+                                                onchange: function (event) {
+                                                }
+                                            }
+                                    },
+                                    {
+                                        type: "myFormGroupDropdown",
+                                        options: {
+                                            id: "TIPS",
+                                            label: "TIPS",
+                                            disabled: false,
+                                            name: "TIPS",
+                                            dtlID: 601,
+                                            dtilStyle: 268438144,
+                                            click: function (context) {
+                                                that._notify.sendMessage(context);
+                                            },
+                                            onchange: function (event) {
+                                            }
+                                        }
+                                    },
+                                    {
+                                        type: "myFormGroupCheckbox",
+                                        options: {
+                                            label: "Override portfolio settings",
+                                            value: "icu",
+                                            dtlID: 500,
+                                            disabled: false,
+                                            click: function (context) {
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                            }]
+                    }
+                }    
+                ],
+                footer:[  
+                    {
+                        type: "myDialogButton",//myDialogButton
+                        options: {
+                            buttonText: "OK",
+                            click: function (context) {
+
+                            }
+                        }
+                    }
+                ]
+            }
+        };
+    }
 
 }
 

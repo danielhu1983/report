@@ -8,7 +8,7 @@ import { PageEngineService } from '../services/page-engine.service';
 import { ReplangService } from '../services/replang.service';
 import { TransporterService } from '../services/transporter.service'; 
 import { RepService } from '../services/rep';
-
+import { NotifiMessage } from '../ReportDialogController/NotifiMessage';
 import { PageBuilder } from '../services/page.builder';
 import { PageDataFactory } from '../services/page.data.factory';
 import { PageUIConfigFactory } from '../services/page.uiconfig.factory';
@@ -18,7 +18,7 @@ import { PageServiceFactory } from '../services/page.service.factory';
 @Component({
     selector: 'contentSelector',
     directives: [MyDivComponent],
-    providers: [EngineService, PageEngineService, PageBuilder, PageDataFactory, PageUIConfigFactory, PageUIFactory, 
+    providers: [EngineService, PageEngineService, PageBuilder, PageDataFactory, PageUIConfigFactory, PageUIFactory, NotifiMessage,
                PageServiceFactory, ReplangService, TransporterService, RepService],
     template: `<my-div [options]="options"></my-div>`
 })

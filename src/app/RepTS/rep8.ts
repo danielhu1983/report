@@ -121,13 +121,21 @@ export class ECD {
 		this.iDropDownState = 0;
 		this.Data = "";
 	}
-    HasExStyle(exStyle: number): boolean {
+    public HasExStyle(exStyle: number): boolean {
 		return (this.ExStyle.xs & exStyle) !== 0;
 	}
 
-	HasStyle(style: number): boolean {
+	public HasStyle(style: number): boolean {
 		return (this.Style & style) !== 0;
 	}
+}
+
+export function ecdHasStyle(ecd: ECD, style: number): boolean{
+    return (ecd.Style & style) !== 0;
+}
+
+export function ecdHasExStyle(ecd: ECD, style: number): boolean{
+    return (ecd.ExStyle.xs & style) !== 0;
 }
 
 export class EXSTYLE {
