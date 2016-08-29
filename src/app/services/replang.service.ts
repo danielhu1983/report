@@ -311,10 +311,10 @@ export class ReplangService {
                                                     value: "chart",
                                                     click: function (context) {
                                                         context.checked = !context.checked;
-                                                        var chartDialog = context.pageContext.service.getSummaryChartUILayout();
-                                                        context.pageContext.ui.children.push(chartDialog);
-                                                        context.options.modal = "modal";
-                                                        context.options.target = "#portfolio_summary_chart";
+                                                        //var chartDialog = context.pageContext.service.getSummaryChartUILayout();
+                                                        //context.pageContext.ui.children.push(chartDialog);
+                                                        //context.options.modal = "modal";
+                                                        //context.options.target = "#portfolio_summary_chart";
                                                     }
                                                 }
                                             }
